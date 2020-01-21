@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Express View Streaming Demo</title>
+</head>
+<body>
+    <h1>Express View Streaming Demo</h1>
+
+    Hello ${data.name}!
+
+    <ul>
+    <for|color| of=data.colors>
+      <li style='color:${color}'>${color}</li>
+    </for>
+    </ul>
+</body>
+</html>
