@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-const {getBooks, addBook, deleteBook} = require('../pages/books/myBooks')
+const { getUserById, addBook, deleteBook } = require('../pages/users')
 
-router.get('/books', getBooks)
-router.post('/books', addBook)
-router.delete('/books/:id', deleteBook)
+router.get('/:id/books', getUserById)
+router.post('/:id/books', addBook)
+router.post('/:id/books/:bookId/delete', deleteBook)// html form doesn't support a delete method
 
 module.exports = router

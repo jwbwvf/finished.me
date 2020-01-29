@@ -22,6 +22,7 @@ const getBooks = async (req, res) => {
 
 const addBook = (req, res) => {
   // TODO add book to database
+  // get user, push book, save user
   render([req.body.book, ...['your money or your life', 'grit', 'richest man in babylon']], res)
 }
 

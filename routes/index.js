@@ -1,13 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
-const { register } = require('./../pages/register/index')
-const { login } = require('./../pages/login/index')
+const { register, getRegisterPage } = require('./../pages/register/index')
+const { login, getLoginPage, logout } = require('./../pages/login/index')
 
 router.get('/', require('./../pages/home/index'))
-router.get('/register', (req, res) => { res.sendFile('register.html', { root: 'public' }) })
+router.get('/register', getRegisterPage)
 router.post('/register', register)
-router.get('/login', (req, res) => { res.sendFile('login.html', { root: 'public' }) })
+router.get('/login', getLoginPage)
 router.post('/login', login)
+router.get('/logout', logout)
 
 module.exports = router

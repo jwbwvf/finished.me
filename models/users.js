@@ -19,6 +19,12 @@ var userSchema = new mongoose.Schema({
     require: true
   },
   books: [
+    {
+      title: {
+        type: String,
+        require: true
+      }
+    }
   ]// ,
   // games: [
   //   {

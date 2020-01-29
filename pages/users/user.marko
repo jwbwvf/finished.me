@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>${data.name}'s Books</title>
+</head>
+<body>
+    <h1>${data.name}'s Books</h1>
+    <if(data.isAllowedToModify)>
+      <form action='/users/${data.id}/books' method="post">
+        Book: <input type="text" name="title">
+        <button type="submit">Add</button>
+      </form>
+    </if>
+    <ul>
+    <for|book| of=data.books>
+      <li>
+        ${book.title}
+        <if(data.isAllowedToModify)>
+          <form action='/users/${data.id}/books/${book.id}/delete' method="post">
+            <button type="submit">X</button>
+          </form>
+        </if>
+      </li>
+    </for>
+    </ul>
+</body>
+</html>

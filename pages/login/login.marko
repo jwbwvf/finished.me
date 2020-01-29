@@ -5,6 +5,9 @@
     <title>login</title>
 </head>
 <body>
+  <if(data.error)>
+    <span>${data.error}</span>
+  </if>
   <form name="login" action="/login" method="post">
     <div class="input">
       <span class="label">Email:<input type="text" name="email"/></span><br/>

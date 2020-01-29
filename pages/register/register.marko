@@ -5,6 +5,9 @@
     <title>register</title>
 </head>
 <body>
+  <if(data.error)>
+    <span>${data.error}</span>
+  </if>
   <form name="register" action="/register" method="post">
     <div class="input">
       <span class="label">Display Name:<input type="text" name="name"/></span><br/>
