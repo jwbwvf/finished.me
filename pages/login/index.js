@@ -45,7 +45,8 @@ const login = (req, res, next) => {
 }
 
 const logout = (req, res) => {
-  return res.cookie('token', '').redirect('/login')
+  req.logout()
+  return res.cookie('token', '').redirect('/public/login')
 }
 
 module.exports = {

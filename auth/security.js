@@ -1,5 +1,3 @@
-'use strict'
-
 const crypto = require('crypto')
 
 const iterations = 1000

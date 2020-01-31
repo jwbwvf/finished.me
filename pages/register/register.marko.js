@@ -24,7 +24,7 @@ function render(input, out, __component, component, state) {
       "</span>");
   }
 
-  out.w("<form name=\"register\" action=\"/register\" method=\"post\"><div class=\"input\"><span class=\"label\">Display Name:<input type=\"text\" name=\"name\"></span><br><span class=\"label\">Email:<input type=\"text\" name=\"email\"></span><br><span class=\"label\">Password:<input type=\"password\" name=\"password\"></span><br><div class=\"actions\"><input type=\"submit\"></div></div></form>");
+  out.w("<form name=\"register\" action=\"/public/register\" method=\"post\"><div class=\"input\"><span class=\"label\">Display Name:<input type=\"text\" name=\"name\"></span><br><span class=\"label\">Email:<input type=\"text\" name=\"email\"></span><br><span class=\"label\">Password:<input type=\"password\" name=\"password\"></span><br><div class=\"actions\"><input type=\"submit\"></div></div></form>");
 
   init_components_tag({}, out);
 
