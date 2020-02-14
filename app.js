@@ -28,8 +28,8 @@ app.use(passport.session())
 var expressjwt = require('express-jwt')
 // var publicKey = fs.readFileSync(config.jwt.public)
 app.use(expressjwt({
-  secret: process.env.JWT_SECRET,// publicKey,
-//  algorithm: 'RS512'
+  secret: process.env.JWT_SECRET, // publicKey,
+  //  algorithm: 'RS512'
   getToken: req => {
     if (req && req.cookies && req.cookies.token) return req.cookies.token
   }
