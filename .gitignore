@@ -105,3 +105,6 @@ dist
 
 # Ide config
 .vscode
+
+## Marko generated files
+*.marko.js
