@@ -107,4 +107,4 @@ dist
 .vscode
 
 ## Marko generated files
-/pages/**/*.marko.js
+pages
