@@ -1,6 +1,6 @@
 var mongoose = require('mongoose')
 
-const dbURI = process.env.NODE_ENV === 'production' ? process.env.MONGO_URI : 'mongodb://localhost/finish'
+const dbURI = process.env.NODE_ENV === 'development' ? 'mongodb://localhost/finish' : process.env.MONGO_URI
 
 mongoose.Promise = global.Promise
 mongoose.connect(dbURI, { useNewUrlParser: true })

@@ -1,3 +1,4 @@
+// todo look at moving these to the db
 module.exports = {
   jwt: {
     private: process.env.JWT_PRIVATE,
