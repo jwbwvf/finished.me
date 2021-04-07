@@ -25,12 +25,7 @@ var userSchema = new mongoose.Schema({
         require: true
       }
     }
-  ]// ,
-  // games: [
-  //   {
-  //     title: String
-  //   }
-  // ]
+  ]
 })
 
 mongoose.model('User', userSchema)
