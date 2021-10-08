@@ -9,10 +9,14 @@ require('./models/db')
 require('./auth/passport')
 
 var indexRouter = require('./routes/index')
-var usersRouter = require('./routes/users')
-var publicRouter = require('./routes/public/index')
+// var usersRouter = require('./routes/users')
+// var publicRouter = require('./routes/public/index')
 
 var app = express()
+
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'jsx')
+app.engine('jsx', require('express-react-views').createEngine())
 
 app.use(logger('dev'))
 app.use(express.json())
@@ -40,8 +44,8 @@ app.use(expressjwt({
 })) // TODO this isn't working the middleware doesn't look for the token in the cookie
 
 app.use('/', indexRouter)
-app.use('/users', usersRouter)
-app.use('/public', publicRouter)
+// app.use('/users', usersRouter)
+// app.use('/public', publicRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -12,39 +12,46 @@ const fs = require('fs')
 const httpsPort = normalizePort(process.env.HTTPS_PORT || '443')
 const httpPort = normalizePort(process.env.HTTP_PORT || '80')
 const { keyPath, certPath } = require('../common/config')
+const port = process.env.NODE_ENV === 'development' ? httpPort : httpsPort
 
 /**
  * serve http to redirect to https
  */
-http.createServer((req, res) => {
-  res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` })
-  res.end()
-}).listen(httpPort)
-console.log(`Using HTTP port ${httpPort}`)
+if (process.env.NODE_ENV !== 'development') {
+  http.createServer((req, res) => {
+    res.writeHead(301, { Location: `https://${req.headers.host}${req.url}` })
+    res.end()
+  }).listen(httpPort)
+  console.log(`Using HTTP port ${httpPort}`)
+}
 
 /**
  * Get port from environment and store in Express.
  */
-console.log(`Using HTTPS port ${httpsPort}`)
-app.set('port', httpsPort)
+app.set('port', port)
 
 /**
  * Create HTTP server.
  */
 
-// const server = http.createServer(app)
-
-const options = {
-  key: fs.readFileSync(keyPath),
-  cert: fs.readFileSync(certPath)
+let server
+if (process.env.NODE_ENV === 'development') {
+  server = http.createServer(app)
+  console.log(`Using HTTP port ${port}`)
+} else {
+  const options = {
+    key: fs.readFileSync(keyPath),
+    cert: fs.readFileSync(certPath)
+  }
+  server = https.createServer(options, app)
+  console.log(`Using HTTPS port ${port}`)
 }
-const server = https.createServer(options, app)
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(httpsPort)
+server.listen(port)
 server.on('error', onError)
 server.on('listening', onListening)
 
@@ -78,8 +85,8 @@ function onError (error) {
   }
 
   const bind = typeof port === 'string'
-    ? 'Pipe ' + httpsPort
-    : 'Port ' + httpsPort
+    ? 'Pipe ' + port
+    : 'Port ' + port
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
