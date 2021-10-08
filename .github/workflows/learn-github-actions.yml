@@ -1,15 +1,20 @@
-name: learn-github-actions
+name: build and deploy
 on:
   push:
     branches:
       - 'master'
 jobs:
-  check-bats-version:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - run: npm isntall -g bats
-      - run: bats -v
+      - uses: appleboy/sshe-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: whoami
