@@ -9,6 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
+
         with:
           node-version: '14'
       - uses: appleboy/ssh-action@master
@@ -17,7 +18,16 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
+        env:
+          MONGO_URI: ${{secrets.MONGO_URI}}
+          CERT_PATH: ${{secrets.CERT_PATH}}
+          KEY_PATH: ${{secrets.KEY_PATH}}
+          SESSION_SECRET: ${{secrets.SESSION_SECRET}}
+          JWT_SECRET: ${{secrets.JWT_SECRET}}
           script: |
-            whoami
-            cd finished.me
-            ls -al
+            export MONGO_URI=$MONGO_URI
+            export CERT_PATH=$CERT_PATH
+            export KEY_PATH=$KEY_PATH
+            export SESSION_SECRET=$SESSION_SECRET
+            export JWT_SECRET=$JWT_SECRET
+            printenv
