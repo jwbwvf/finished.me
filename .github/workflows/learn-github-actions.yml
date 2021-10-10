@@ -13,17 +13,18 @@ jobs:
         with:
           node-version: '14'
       - uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
         env:
           MONGO_URI: ${{secrets.MONGO_URI}}
           CERT_PATH: ${{secrets.CERT_PATH}}
           KEY_PATH: ${{secrets.KEY_PATH}}
           SESSION_SECRET: ${{secrets.SESSION_SECRET}}
           JWT_SECRET: ${{secrets.JWT_SECRET}}
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          envs: MONGO_URI,CERT_PATH,KEY_PATH,SESSION_SECRET,JWT_SECRET
           script: |
             cd finished.me
             ls -al
