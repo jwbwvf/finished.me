@@ -25,9 +25,12 @@ jobs:
           SESSION_SECRET: ${{secrets.SESSION_SECRET}}
           JWT_SECRET: ${{secrets.JWT_SECRET}}
           script: |
+            cd finished.me
+            ls -al
             export MONGO_URI=$MONGO_URI
             export CERT_PATH=$CERT_PATH
             export KEY_PATH=$KEY_PATH
             export SESSION_SECRET=$SESSION_SECRET
             export JWT_SECRET=$JWT_SECRET
             printenv
+            pm2 restart "npm run start"
