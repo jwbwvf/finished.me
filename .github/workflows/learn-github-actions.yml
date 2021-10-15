@@ -9,34 +9,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Use node ${{secrets.NODE_VERSION}}
-      - uses: actions/setup-node@v2
+        uses: actions/setup-node@v2
         with:
           node-version: ${{secrets.NODE_VERSION}}
-      - name: build and test
-      - run: npm ci
-      - run: npm test
-      - uses: appleboy/ssh-action@master
-        env:
-          MONGO_URI: ${{secrets.MONGO_URI}}
-          CERT_PATH: ${{secrets.CERT_PATH}}
-          KEY_PATH: ${{secrets.KEY_PATH}}
-          SESSION_SECRET: ${{secrets.SESSION_SECRET}}
-          JWT_SECRET: ${{secrets.JWT_SECRET}}
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          envs: MONGO_URI,CERT_PATH,KEY_PATH,SESSION_SECRET,JWT_SECRET
-          script: |
-            cd finished.me
-            ls -al
-            export MONGO_URI=$MONGO_URI
-            export CERT_PATH=$CERT_PATH
-            export KEY_PATH=$KEY_PATH
-            export SESSION_SECRET=$SESSION_SECRET
-            export JWT_SECRET=$JWT_SECRET
-            pm2 stop "npm run start"
-            git pull
-            npm ci
-            pm2 start "npm run start"
+
+      - name: npm ci
+        run: npm ci
+
+      - name: npm test
+        run: npm test
