@@ -8,10 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Use node ${{secrets.NODE_VERSION}}
       - uses: actions/setup-node@v2
-
         with:
-          node-version: '14'
+          node-version: ${{secrets.NODE_VERSION}}
+      - name: build and test
+      - run: npm ci
+      - run: npm test
       - uses: appleboy/ssh-action@master
         env:
           MONGO_URI: ${{secrets.MONGO_URI}}
@@ -33,5 +36,7 @@ jobs:
             export KEY_PATH=$KEY_PATH
             export SESSION_SECRET=$SESSION_SECRET
             export JWT_SECRET=$JWT_SECRET
-            printenv
-            pm2 restart "npm run start"
+            pm2 stop "npm run start"
+            git pull
+            npm ci
+            pm2 start "npm run start"
